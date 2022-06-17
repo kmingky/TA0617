@@ -31,6 +31,8 @@ class User(AbstractBaseUser):
     fullname = models.CharField("이름", max_length=50)
     address = models.CharField("주소", max_length=256, null=False)
 
+    type = models.ForeignKey('UserType', on_delete=models.SET_NULL, null=True)
+
     join_date = models.DateTimeField("가입일", auto_now_add=True)
     is_active = models.BooleanField(default=True)
     is_admin = models.BooleanField(default=False)
@@ -52,3 +54,12 @@ class User(AbstractBaseUser):
     @property
     def is_staff(self):
         return self.is_admin
+
+
+# user/models.py 지원자(candidate), 채용 담당자(recruiter) 등 유저 타입을 저장할 수 있는 UserType모델을 만들고 User모델과 관계
+class UserType(models.Model):
+    type = models.CharField("구분", max_length=200)
+
+    def __str__(self):
+        return self.type
+    
