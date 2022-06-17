@@ -63,3 +63,8 @@ class UserType(models.Model):
     def __str__(self):
         return self.type
     
+
+# user/models.py : <유저가 마지막으로 로그인한 날짜(Date)와 마지막으로 지원한날짜>를 저장할수 있는 UserLog 라는 모델
+class UserLog(models.Model):
+    last_login_date = models.DateField("마지막 로그인 날짜", auto_now=True)
+    last_candidate = models.DateField("마지막 지원 날짜", auto_now=True)
